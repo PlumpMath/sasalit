@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}게시판 | 편집{% endblock %}
+
+{% block content %}
+
+<div class="card my-1 px-3 py-2">
+    <h3>글쓰기</h3>
+    <form id="post-form" method="POST">
+        {% csrf_token %}
+        <input type="hidden" id="input-category" name="category" value="general">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fullwidth">
+            <input class="mdl-textfield__input" type="text" id="category-selector" value="{{ post.category_readable }}" data-val="{{ post.category }}" readonly tabIndex="-1">
+            <label for="category-selector" class="mdl-textfield__label">카테고리</label>
+            <ul for="category-selector" onclick="categoryChanged()" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                <li class="mdl-menu__item" data-val="general" onclick="categoryChanged()">아무말</li>
+                <li class="mdl-menu__item" data-val="qna" onclick="categoryChanged()">질문과 답변</li>
+                <li class="mdl-menu__item" data-val="report" onclick="categoryChanged()">제보</li>
+            </ul>
+        </div>
+        <br />
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label extrawide">
+            <label class="mdl-textfield__label" for="title">제목</label>
+            <input class="mdl-textfield__input" type="text" id="title" name="title" required="true" value="{{ post.title }}">
+        </div>
+        <textarea name="content" id="editor-post" form="post-form" style="width: 300px;" rows="20" cols="80">
+            {{ post.content|safe }}
+        </textarea>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--primary mt-2"><span class="fa fa-pencil"></span>&nbsp;&nbsp;글 작성</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block js_includes %}
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'js/board_free_edit.js' %}"></script>
+{% endblock %}

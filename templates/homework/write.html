@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}게시판 | 글쓰기{% endblock %}
+
+{% block content %}
+
+<h3>{{cls.name}} {{cls.class_no}}반 과제물 쓰기</h3>
+<p class="red-text">
+    사용자 정보에 학번이 있으므로 제목에 학번을 기입할 필요가 없습니다. <br />
+    한번 올린 과제물은 수정할 수 없으니 신중히 올리세요.
+</p>
+<form enctype="multipart/form-data" id="post-form" method="POST">
+    {% csrf_token %}
+    <div class="input-group mt-2 mb-3">
+        <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+        <input type="text" id="title" name="title" required="true" class="form-control" placeholder="제목">
+    </div>
+    <input type="file" name="hw_file" id="id_hw_file" class="file" />
+    <br />
+    <button type="submit" class="btn btn-outline-primary mt-2"><span class="fa fa-pencil"></span>&nbsp;&nbsp;글 작성</button>
+</form>
+
+{% endblock %}
+
+{% block js_includes %}
+{% endblock %}

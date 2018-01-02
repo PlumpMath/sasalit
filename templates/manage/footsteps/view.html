@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mt-1 pt-0 pb-0">
+    <h3>학생 발자국: {{ student.profile.student_idno }}&nbsp;{{ student.first_name }}</h3>
+</div>
+{% for post in posts %}
+    <div class="py-3">
+        <h3 class="blue-text">{{post.parent_class}} - {{post.title}}</h3>
+        <small class="mt-0 pt-0 pb-2">
+            게시 시간: {{post.created_time}}
+            <br/>
+            <span class="red-text">마지막 수정 시간: {{post.edit_time}}</span>
+        </small>
+        <div class="card px-2 py-2 mt-2">
+            {{post.content|safe}}
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

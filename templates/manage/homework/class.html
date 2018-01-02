@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mt-1 pt-0">
+    <h3>
+        학생 선택 <button type="button" onclick="location.href='view/';" class="btn btn-sm btn-outline-info"><span class="fa fa-lightbulb-o"></span>&nbsp;&nbsp;학생 모아보기</button>
+    </h3>
+</div>
+{% if students.count == 0 %}
+    <p class="text-center my-4">
+        학생이 없습니다
+    </p>
+{% else %}
+    <div>
+        {% for stu in students %}
+            <button class="btn btn-outline-success" onclick="location.href='/manage/homework/student/{{stu.pk}}/{{cls_obj.pk}}';">
+                {{ stu.profile.student_idno }}&nbsp;{{ stu.first_name }}
+            </button>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

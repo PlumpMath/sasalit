@@ -1,0 +1,14 @@
+{% extends "./../base.html" %}
+
+{% block title %} 과제방 {% endblock %}
+
+{% block content %}
+<h3>
+    과목을 선택하세요.
+</h3>
+{% for cls in classes %}
+    <button class="btn btn-block btn-info mt-3 mb-2" onclick="location.href='/homework/list/{{cls.pk}}';">
+        {{cls.name}}&nbsp;{{cls.class_no}}반
+    </button>
+{% endfor %}
+{% endblock %}

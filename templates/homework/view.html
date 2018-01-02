@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<script>
+    var class_no = {{post.parent_class.pk}};
+</script>
+<h3 class="card-title my-2">{{ post.title }}</h3>
+<div class="post-meta">
+    <a href="/profile/{{ post.author.pk }}">{{ post.author.first_name }}</a> | {{ post.created_time }}
+    {% ifequal user post.author %}
+        | <a href="#" onclick="deletePost({{post.pk}})">삭제</a>
+    {% endifequal %}
+</div>
+<button class="btn btn-block btn-info mt-3" onclick="window.open('{{post.hw_file.url}}','_blank')">
+    다운로드
+</button>
+{% endblock %}
+
+{% block js_includes %}
+<script src="{% static 'js/homework_view.js' %}"></script>
+{% endblock %}

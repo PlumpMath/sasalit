@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+
+<h3 class="card-title my-2">{{ post.title }}</h3>
+<div class="post-meta">
+    <a href="/profile/{{ post.author.pk }}">{{ post.author.first_name }}</a> | {{ post.created_time }}
+    {% ifequal user post.author %}
+        | <a href="#" onclick="deletePost({{post.pk}})">삭제</a>
+        | <a href="/board/free/post/edit/{{ post.pk }}">편집</a>
+    {% endifequal %}
+</div>
+<hr class="pt-3 pb-0">
+<div class="post-body">
+    {{ post.content|safe }}
+</div>
+
+<div class="mt-5">
+    <h4 class="card-title mb-3">{{ comments.count }}개 댓글</h4>
+    {% for comment in comments %}
+    <div class="mt-2 card px-3 py-3">
+        <div class="comment-meta">
+            <a href="/profile/{{ comment.author.pk }}">{{ comment.author.first_name }}</a> | {{ comment.created_time }}
+            {% ifequal user comment.author %}
+                | <a href="#" onclick="deleteComment({{comment.pk}})">삭제</a>
+            {% endifequal %}
+        </div>
+        <div class="comment-body mt-2">
+            {{ comment.content|safe }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if user.is_authenticated %}
+<div class="mt-5">
+    <!--Comment Write Area-->
+    <script>var enableCommentWrite=true; </script>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="content" id="editor-comment" style="width: 300px;" rows="10" cols="80">
+        </textarea>
+        <div id="comment-actions" class="mt-2">
+            <button type="submit" class="btn btn-outline-success">
+                <span class="fa fa-pencil"></span>&nbsp;&nbsp;댓글 작성
+            </button>
+            <button type="button" class="btn btn-outline-primary" onclick="document.location='/board/free/list'">
+                <span class="fa fa-list"></span>&nbsp;&nbsp;글 목록
+            </button>
+        </div>
+        {% if comment_form.errors %}
+            <p class="red-text">{{ comment_form.errors.as_text }}</p>
+        {% endif %}
+    </form>
+</div>
+{% else %}
+<div id="comment-actions" class="mt-2">
+    <button type="button" class="btn btn-outline-primary" onclick="document.location='/board/free/list'">
+        <span class="fa fa-list"></span>&nbsp;&nbsp;글 목록
+    </button>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block js_includes %}
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'js/board_free_view.js' %}"></script>
+{% endblock %}

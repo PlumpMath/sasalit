@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}회원가입{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h3>이미 로그인되어 있습니다.</h3>
+{% else %}
+<h3>회원가입</h3>
+<p id="general-errors-text" class="red-text">{{ form.non_field_errors.as_text }}</p>
+<form method="post" class="pt-1" id="form-signup">
+    {% csrf_token %}
+    <div class="input-group mt-1">
+        <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+        <input id="username" name="username" class="form-control" placeholder="아이디" required="true">
+    </div>
+    <p>{{ user_form.username.help_text }}</p>
+    {% if user_form.username.errors %}
+        <p class="red-text">{{ user_form.username.errors.as_text }}</p>
+    {% endif %}
+    <div class="input-group mt-2">
+        <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+        <input id="password" name="password1" type="password" class="form-control" placeholder="비밀번호" required="true">
+    </div>
+    {% if user_form.password1.errors %}
+        <p class="red-text">{{ user_form.password1.errors.as_text }}</p>
+    {% endif %}
+    <div class="input-group mt-2">
+        <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+        <input id="password2" name="password2" type="password" class="form-control" placeholder="비밀번호 재입력" required="true">
+    </div>
+    {% if user_form.password2.errors %}
+        <p class="red-text">{{ user_form.password2.errors.as_text }}</p>
+    {% endif %}
+    <div class="input-group mt-2">
+        <span class="input-group-addon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
+        <input id="first_name" name="first_name" type="text" class="form-control" placeholder="이름" required="true">
+    </div>
+    {% if user_form.first_name.errors %}
+        <p class="red-text">{{ user_form.first_name.errors.as_text }}</p>
+    {% endif %}
+    <div class="input-group mt-2">
+        <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+        <input id="email" name="email" type="email" class="form-control" placeholder="이메일" required="true">
+    </div>
+    {% if user_form.email.errors %}
+        <p class="red-text">{{ user_form.email.errors.as_text }}</p>
+    {% endif %}
+    {% if profile_form.email.errors %}
+        <p class="red-text">{{ profile_form.join_year.errors.as_text }}</p>
+    {% endif %}
+    <div class="input-group mt-2">
+        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+        <input type="number" id="join_year" name="join_year" class="form-control" placeholder="입학 년도" required="true">
+    </div>
+    <br />
+    <div class="blue-text">문학수업 반, 번호가 아닌 원래 반, 번호를 입력해주세요.</div>
+    <div class="input-group">
+        <input type="hidden" id="input-class" name="class_no" value="-">
+        <span class="input-group-addon"><i class="fa fa-thumbs-up mr-1" aria-hidden="true"></i>반</span>
+        <select class="form-control" id="class-selector">
+            {% for i in "xxxxxx" %}
+            <option data-val="{{ forloop.counter0|add:1 }}">{{ forloop.counter0|add:1 }}반</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="input-group mt-2">
+        <input type="hidden" id="input-student" name="student_no" value="-">
+        <span class="input-group-addon"><i class="fa fa-thumbs-up mr-1" aria-hidden="true"></i>번호</span>
+        <select class="form-control" id="student-selector">
+            {% for i in "xxxxxxxxxxxxxxxxxxxx" %}
+            <option data-val="{{ forloop.counter0|add:1 }}">{{ forloop.counter0|add:1 }}번</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">제출</button>
+</form>
+{% endif %}
+
+{% endblock %}
+
+{% block js_includes %}
+    <script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}

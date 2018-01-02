@@ -1,0 +1,161 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>{% block title %}Hi{% endblock %} - SASA 국어카페</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta lang="ko">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> {% block css_includes %} {% endblock %}
+    <!-- JS & CSS includes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js" integrity="sha256-pS96pU17yq+gVu4KBQJi38VpSuKN7otMrDQprzf/DWY="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha256-DiWJXXyq81WlPRnDfGmgYZj2aOVCKyEdJ1l+2TmDuAs="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha256-m/h/cUDAhf6/iBRixTbuc8+Rg2cIETQtPcH9D3p2Kg0="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <!-- KaTeX -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx"
+        crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/fileinput.min.js"></script>
+</head>
+<body>
+    {% csrf_token %}
+    <div class="wrapper">
+        <div class="color-edge-bar"></div>
+        <nav class="navbar navbar-expand navbar-light" id="main-nav">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="main-navbar">
+                    <ul class="navbar-nav mr-auto mt-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">
+                                <i class="fa fa-home mr-sm-1" aria-hidden="true"></i>
+                                <span class="nav-main-text">홈</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/board/free/list">
+                                <i class="fa fa-bullhorn mr-sm-1" aria-hidden="true"></i>
+                                <span class="nav-main-text">게시판</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/footsteps">
+                                <i class="fa fa-paper-plane mr-sm-1" aria-hidden="true"></i>
+                                <span class="nav-main-text">발자국</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/homework">
+                                <i class="fa fa-trash mr-sm-1" aria-hidden="true"></i>
+                                <span class="nav-main-text">과제방</span>
+                            </a>
+                        </li>
+                        {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/manage/footsteps">
+                                <i class="fa fa-plane mr-sm-1" aria-hidden="true"></i>
+                                <span class="nav-main-text">발자국 관리</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/manage/homework">
+                                <i class="fa fa-plane mr-sm-1" aria-hidden="true"></i>
+                                <span class="nav-main-text">과제방 관리</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    <ul class="navbar-nav navbar-right nav-links">
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile/me">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <span class="nav-right-text">{{user}}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile/edit">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                <span class="nav-right-text">정보 편집</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/logout">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                <span class="nav-right-text">로그아웃</span>
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/login">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                            <span class="nav-right-text">로그인</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auth/signup">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            <span class="nav-right-text">회원가입</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main class="page-content" aria-label="Content">
+            <div class="container">
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+        <div class="push"></div>
+    </div>
+    <footer class="site-footer">
+        <small>
+          Powered by
+          <a href="mailto:studiodoth@sasa.hs.kr">simotion</a>
+          /
+          <a href="https://github.com/studiodoth/sasalit">Github</a>
+        </small>
+        <div class="color-edge-bar"></div>
+    </footer>
+    {% block js_includes %}
+
+    {% endblock %}
+    <script>
+        $('[data-toggle="tooltip"]').tooltip();
+        renderMathInElement(document.getElementById("content-main"), { delimiters: [{ left: "\\(", right: "\\)", display: false }] });
+    </script>
+    <!-- Google Analytics -->
+    <script>
+        (function (i, s, o, g, r, a, m) {        
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-106399087-1', 'auto');
+        ga('send', 'pageview');
+        {% if user.is_authenticated %}    
+        ga('set', 'userId', '{{ user }}'); // 로그인한 User-ID를 사용하여 User-ID를 설정합니다.
+        {% endif %}
+
+    </script>
+</body>
+
+</html>

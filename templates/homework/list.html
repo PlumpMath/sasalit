@@ -1,0 +1,47 @@
+{% extends "./../base.html" %}
+
+{% block title %} 과제방 | {{page}}페이지 {% endblock %}
+
+{% block content %}
+<div class="posts">
+    <div class="mt-1 pt-0">
+        <h3>
+            {{cls.name}} {{cls.class_no}}반 과제방
+            <button type="button" class="btn btn-outline-info btn-sm" onclick="location.href='/homework/write/{{cls_pk}}/';">
+                <span class="fa fa-pencil"></span>&nbsp;&nbsp;글쓰기
+            </button>
+        </h3>
+    </div>
+    {% if posts.count == 0 %}
+        <p class="text-center my-4">
+            글이 없습니다
+        </p>
+    {% else %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 100px;">#</th>
+                <th scope="col">제목</th>
+                <th scope="col" style="width: 160px;">작성자</th>
+                <th scope="col" style="width: 100px;">작성시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr>
+                <td class="hidden-sm">{{ post.pk }}</td>
+                <td><a href="/homework/view/{{post.pk}}">{{ post.title }}</a>   </td>
+                <td><a href="/profile/{{post.author.pk}}">{{post.author.first_name}}</a></td>
+                <td id="ctime-{{ post.pk }}" class="hidden-sm">{{post.created_time_rendered}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <ul class="pagination mx-auto">
+        <li class="page-item"><a class="page-link" href="/homework/list/{{cls.class_no}}/{{prev_page}}">이전</a></li>
+        <li class="page-item"><a class="page-link" href="#">{{page}} 페이지</a></li>
+        <li class="page-item"><a class="page-link" href="/homework/list/{{cls.class_no}}/{{next_page}}">다음</a></li>
+    </ul>
+</div>
+{% endblock %}

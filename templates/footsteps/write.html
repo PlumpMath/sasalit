@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}게시판 | 글쓰기{% endblock %}
+
+{% block content %}
+
+<h3>{{cls.name}} {{cls.class_no}}반 발자국 쓰기</h3>
+<p class="blue-text">사용자 정보에 학번이 있으므로 제목에 학번을 기입할 필요가 없습니다.</p>
+<form id="post-form" method="POST">
+    {% csrf_token %}
+    <div class="input-group mt-1 mb-2">
+        <span class="input-group-addon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+        <input id="title" name="title" class="form-control" placeholder="제목">
+    </div>
+    <textarea name="content" id="editor-post" form="post-form" style="width: 300px;" rows="20" cols="80">
+    </textarea>
+    <button type="submit" class="btn btn-outline-success mt-2"><span class="fa fa-pencil"></span>&nbsp;&nbsp;글 작성</button>
+</form>
+
+{% endblock %}
+
+{% block js_includes %}
+    <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'js/board_free_write.js' %}"></script>
+{% endblock %}

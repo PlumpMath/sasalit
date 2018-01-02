@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h3>정보 편집</h3>
+<div class="card px-3 pt-3 pb-3">
+    <h4 class="blue-text">수강 수업 변경</h4>
+    {% for cls in classes %}
+    <label>
+        <input type="checkbox" name="check" class="cledit-checkbox" id="cledit-checkbox-{{cls.pk}}" data-pk="{{cls.pk}}" {%if cls.pk in stu_classes%}checked{%endif%}> <span class="label-text">{{ cls }}</span>
+    </label>
+    {% endfor %}
+    <span id="ok-toast" class="red-text"></span>
+</div>
+
+{% endblock %}
+{% block js_includes %}
+<script src="{% static 'js/profile_class_update.js' %}"></script>
+{% endblock %}

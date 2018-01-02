@@ -1,0 +1,191 @@
+@import url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,100,700);
+body, table, div, p {
+    font-family: Roboto, 'Spoqa Han Sans', 'Spoqa Han Sans JP', 'Sans-serif';
+}
+
+.page-content {
+    margin: 10px;
+}
+.content-card {
+    background: #FFF;
+    margin: 5px;
+    padding: 30px 20px;
+    box-shadow: 0px 0px 8px #666;
+}
+.red-text {
+    color: #e83c3c;
+}
+.extrawide {
+    width: 100%;
+}
+.form-center {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.part-header {
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 40px;
+    line-height: 4rem;
+    letter-spacing: 0px;
+    letter-spacing: 0rem;
+    font-weight: 450;
+    color: #039be5;
+    text-transform: inherit;
+}
+.bottom-item {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 200px;
+    left: 50%;
+    margin-left: -100px;
+    color: #666666;
+}
+@media (max-height: 540px) {
+    .bottom-item {
+        display: none;
+    }
+}
+.post-list {
+    list-style-type: none;
+}
+.post-content {
+    overflow: hidden;
+}
+.col-title-meta {
+    width: 110px;
+    text-align: right;
+}
+.blue-text {
+    color: #2fb1c7;
+}
+.color-edge-bar {
+    background-color: #2fb1c7;
+    height: 5px;
+}
+div.page-heading {
+    text-align: center;
+    font-size: 30px;
+}
+#header-body {
+    padding-bottom: 60px;
+}
+a, a:link, a:hover, a:visited, a:active {
+    color: #2fb1c7;
+    text-decoration: none;
+}
+blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+}
+blockquote:before {
+    color: #ccc;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+}
+blockquote p {
+    display: inline;    
+}
+.highlight {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+}
+.gray-text {
+    color: rgba(0,0,0,.5);
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (max-width: 360px) {
+    .nav-links {
+        display: none;
+    }
+}
+@media (min-width: 360px) {
+    .nav-links-inverse {
+        display: none;
+    }
+}
+@media (max-width: 420px) {
+    .footer-text {
+        display: none;
+    }
+}
+@media (min-width: 420px) {
+    .footer-text-inverse {
+        display: none;
+    }
+}
+@media (max-width: 770px) {
+    .nav-main-text {
+        display: none;
+    }
+}
+@media (max-width: 991px) {
+    .nav-right-text {
+        display: none;
+    }
+}
+.site-footer, .push {
+  height: 29px;
+}
+.site-footer {
+    text-align: center;
+}
+.wrapper {
+    min-height: 100%;
+    margin-bottom: -29px;
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+#main-nav {
+    box-shadow: 0px 5px 3px #CCCCCC;
+    margin-bottom: 30px;
+}
+
+input[type="checkbox"] + .label-text:before{
+	content: "\f096";
+	font-family: "FontAwesome";
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing:antialiased;
+	width: 1em;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+input[type="checkbox"]:checked + .label-text:before{
+	content: "\f14a";
+	color: #2980b9;
+	animation: effect 250ms ease-in;
+}
+
+input[type="checkbox"]:disabled + .label-text{
+	color: #aaa;
+}
+
+input[type="checkbox"]:disabled + .label-text:before{
+	content: "\f0c8";
+	color: #ccc;
+}
+input[type="checkbox"], input[type="radio"]{
+	position: absolute;
+	right: 9000px;
+}
